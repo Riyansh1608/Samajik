@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:samajik/pages/home_page.dart';
+import 'package:samajik/pages/login_screen.dart';
+import 'package:samajik/pages/register_screeen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +17,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple,
       ),
-      home: const Home(),
+      initialRoute: "/login",
+      routes: {
+        "/home": (context) => const Home(),
+        "/login": (context) => const LoginPage(),
+        "/register": (context) => const RegisterPage(),
+      },
     );
   }
 }
