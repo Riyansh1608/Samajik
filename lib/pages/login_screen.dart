@@ -88,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _loginForm() {
     return Container(
-      height: _deviceHeight! * 0.40,
+      height: _deviceHeight! * 0.25,
       child: Form(
         key: _loginFormKey,
         child: Column(
@@ -129,9 +129,9 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _loginUser() {
-    print(_loginFormKey.currentState!.validate());
-    print(_email);
-    print(_password);
-    if (_loginFormKey.currentState!.validate()) {}
+    if (_loginFormKey.currentState!.validate()) {
+      _loginFormKey.currentState!.save();
+      Navigator.pushNamed(context, '/home');
+    }
   }
 }

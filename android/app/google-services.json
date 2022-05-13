@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "666915680534",
+    "project_id": "vartalaap-1df65",
+    "storage_bucket": "vartalaap-1df65.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:666915680534:android:16eb43399994b8e66a6037",
+        "android_client_info": {
+          "package_name": "com.example.samajik"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "666915680534-7cgmm6cva470gndbdb5q1s09e6ek9uu7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZt-keKbdIxYD-VGJF-sgRAs0hIMuqZdM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "666915680534-7cgmm6cva470gndbdb5q1s09e6ek9uu7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

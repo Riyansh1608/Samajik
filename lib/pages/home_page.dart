@@ -8,20 +8,58 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  List<Widget> body = [
+    Container(color: Colors.red),
+    Container(color: Colors.green),
+  ];
+  int _currentpage = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text(
-        "Samajik",
-        style: TextStyle(color: Colors.white, fontSize: 30),
-      )),
-      body: const Center(
-        child: Text(
-          "A Social Place For the new India",
-          style: TextStyle(color: Colors.purple, fontSize: 30),
+        centerTitle: true,
+        title: const Text(
+          "Vartalaap",
+          style: TextStyle(color: Colors.white, fontSize: 30),
         ),
+        actions: [
+          GestureDetector(
+            onTap: () {},
+            child: Icon(Icons.add_a_photo),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 10, right: 10),
+            child: GestureDetector(
+              onTap: () {},
+              child: Icon(Icons.logout),
+            ),
+          ),
+        ],
       ),
+      body: body[_currentpage],
+      bottomNavigationBar: _bottomNavigationBar(),
+    );
+  }
+
+  Widget _bottomNavigationBar() {
+    return BottomNavigationBar(
+      currentIndex: _currentpage,
+      onTap: (_index) {
+        setState(() {
+          _currentpage = _index;
+        });
+      },
+      items: const [
+        BottomNavigationBarItem(
+          label: "Feed",
+          icon: Icon(Icons.feed),
+        ),
+        BottomNavigationBarItem(
+          label: "profile",
+          icon: Icon(Icons.account_box),
+        )
+      ],
     );
   }
 }
