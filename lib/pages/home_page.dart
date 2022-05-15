@@ -1,4 +1,11 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:samajik/pages/feed.dart';
+import 'package:samajik/pages/profile.dart';
+import 'package:samajik/services/firebase_service.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -8,11 +15,18 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<Widget> body = [
-    Container(color: Colors.red),
-    Container(color: Colors.green),
+  FirebaseService? _firebaseService;
+  final List<Widget> body = [
+    Feed(),
+    Profile(),
   ];
   int _currentpage = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _firebaseService = GetIt.instance.get<FirebaseService>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +39,16 @@ class _HomeState extends State<Home> {
         ),
         actions: [
           GestureDetector(
-            onTap: () {},
+            onTap: _postImage,
             child: Icon(Icons.add_a_photo),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 10, right: 10),
             child: GestureDetector(
-              onTap: () {},
+              onTap: () async {
+                _firebaseService!.logout();
+                Navigator.popAndPushNamed(context, '/login');
+              },
               child: Icon(Icons.logout),
             ),
           ),
@@ -61,5 +78,12 @@ class _HomeState extends State<Home> {
         )
       ],
     );
+  }
+
+  void _postImage() async {
+    FilePickerResult? _result =
+        await FilePicker.platform.pickFiles(type: FileType.image);
+    File _image = File(_result!.files.first.path!);
+    await _firebaseService!.postImage(_image);
   }
 }

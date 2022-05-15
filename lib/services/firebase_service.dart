@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 final String USER_COLLECTION = 'user';
+final String POSTS_COLLECTION = 'posts';
 
 class FirebaseService {
   FirebaseAuth _auth = FirebaseAuth.instance;
@@ -69,5 +70,47 @@ class FirebaseService {
     DocumentSnapshot _doc =
         await _db.collection(USER_COLLECTION).doc(uid).get();
     return _doc.data() as Map;
+  }
+
+  Future<bool> postImage(File _image) async {
+    try {
+      String _userId = _auth.currentUser!.uid;
+      String _fileName = Timestamp.now().millisecondsSinceEpoch.toString() +
+          p.extension(_image.path);
+
+      UploadTask _task =
+          _storage.ref('images/$_userId/$_fileName').putFile(_image);
+      return await _task.then((_snapshot) async {
+        String _downloadURL = await _snapshot.ref.getDownloadURL();
+        await _db.collection(POSTS_COLLECTION).add({
+          "userId": _userId,
+          "timestamp": Timestamp.now(),
+          "image": _downloadURL,
+        });
+        return true;
+      });
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Stream<QuerySnapshot> getLatestPosts() {
+    return _db
+        .collection(POSTS_COLLECTION)
+        .orderBy('timestamp', descending: true)
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot> getUsersPosts() {
+    String _userID = _auth.currentUser!.uid;
+    return _db
+        .collection(POSTS_COLLECTION)
+        .where("userId", isEqualTo: _userID)
+        .snapshots();
+  }
+
+  Future<void> logout() async {
+    await _auth.signOut();
   }
 }
