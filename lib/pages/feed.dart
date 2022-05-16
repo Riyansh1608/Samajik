@@ -46,12 +46,30 @@ class _FeedState extends State<Feed> {
                     margin: EdgeInsets.symmetric(
                         horizontal: _deviceWidth! * 0.05,
                         vertical: _deviceHeight! * 0.01),
-                    height: _deviceHeight! * 0.50,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(_post["image"]),
-                      ),
+                    height: _deviceHeight! * 0.56,
+                    child: Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.yellow,
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                          padding:
+                              EdgeInsets.only(bottom: _deviceHeight! * 0.01),
+                          height: _deviceHeight! * 0.06,
+                          child: Row(),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: _deviceHeight! * 0.01),
+                          height: _deviceHeight! * 0.50,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(_post["image"]),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   );
                 });

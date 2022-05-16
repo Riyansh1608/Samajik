@@ -34,6 +34,7 @@ class _ProfileState extends State<Profile> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           _profileWidget(),
+          _nameWidget(),
           _postGridView(),
         ],
       ),
@@ -41,17 +42,33 @@ class _ProfileState extends State<Profile> {
   }
 
   Widget _profileWidget() {
-    return Container(
-      margin: EdgeInsets.only(bottom: _deviceHeight! * 0.02),
-      height: _deviceHeight! * 0.15,
-      width: _deviceHeight! * 0.15,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(100),
-        image: DecorationImage(
-          fit: BoxFit.cover,
-          image: NetworkImage(_firebaseService!.currentUser!["image"]),
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        margin: EdgeInsets.only(bottom: _deviceHeight! * 0.02),
+        height: _deviceHeight! * 0.15,
+        width: _deviceHeight! * 0.15,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(100),
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            image: NetworkImage(_firebaseService!.currentUser!["image"]),
+          ),
         ),
       ),
+    );
+  }
+
+  Widget _nameWidget() {
+    return Container(
+      margin: EdgeInsets.only(bottom: _deviceHeight! * 0.02),
+      height: _deviceHeight! * 0.05,
+      width: _deviceHeight!,
+      child: Center(
+          child: Text(
+        _firebaseService!.currentUser!["name"],
+        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+      )),
     );
   }
 
