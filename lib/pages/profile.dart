@@ -26,7 +26,7 @@ class _ProfileState extends State<Profile> {
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: _deviceWidth! * 0.05,
-        vertical: _deviceWidth! * 0.02,
+        vertical: _deviceWidth! * 0.04,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -50,6 +50,19 @@ class _ProfileState extends State<Profile> {
         width: _deviceHeight! * 0.15,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.purple,
+              blurRadius: 2.0,
+              spreadRadius: 5.0,
+            ),
+            BoxShadow(
+              color: Colors.white,
+              offset: Offset(0.0, 0.0),
+              blurRadius: 0.2,
+              spreadRadius: 0.0,
+            ), //BoxShadow
+          ],
           image: DecorationImage(
             fit: BoxFit.cover,
             image: NetworkImage(_firebaseService!.currentUser!["image"]),
@@ -67,7 +80,11 @@ class _ProfileState extends State<Profile> {
       child: Center(
           child: Text(
         _firebaseService!.currentUser!["name"],
-        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+        style: const TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.w500,
+            color: Color.fromARGB(255, 95, 19, 109),
+            fontFamily: "BubblegumSans"),
       )),
     );
   }
