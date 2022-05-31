@@ -35,7 +35,11 @@ class _HomeState extends State<Home> {
         centerTitle: true,
         title: const Text(
           "Vartalaap",
-          style: TextStyle(color: Colors.white, fontSize: 30),
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 30,
+            fontFamily: "BubblegumSans",
+          ),
         ),
         actions: [
           GestureDetector(

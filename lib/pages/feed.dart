@@ -13,6 +13,8 @@ class Feed extends StatefulWidget {
 class _FeedState extends State<Feed> {
   FirebaseService? _firebaseService;
   double? _deviceHeight, _deviceWidth;
+
+  List? currenPostUser;
   Color _likeIconColor = Colors.white;
   Color _commentIconColor = Colors.white;
   Color _shareIconColor = Colors.white;
@@ -45,15 +47,12 @@ class _FeedState extends State<Feed> {
         builder: (BuildContext _context, AsyncSnapshot _snapshot) {
           if (_snapshot.hasData) {
             List _posts = _snapshot.data!.docs.map((e) => e.data()).toList();
+            List _nem = _snapshot.data!.docs.map((e) => e.data()).toList();
+            //print(_posts);
             return ListView.builder(
                 itemCount: _posts.length,
                 itemBuilder: (BuildContext context, int index) {
                   Map _post = _posts[index];
-
-                  String usrid = _post["userId"];
-
-                  //var posterInfo = _firebaseService!.getUserData(uid: usrid).then((value) => va);
-
                   return Container(
                     margin: EdgeInsets.symmetric(
                         horizontal: _deviceWidth! * 0.05,
@@ -105,12 +104,12 @@ class _FeedState extends State<Feed> {
                                 padding: EdgeInsets.only(
                                     left: _deviceWidth! * 0.05,
                                     right: _deviceWidth! * 0.05),
-                                child: Text(
-                                  usrid,
-                                  style: const TextStyle(
+                                child: const Text(
+                                  "_naam",
+                                  style: TextStyle(
                                       color: Color.fromARGB(255, 95, 19, 109),
                                       fontFamily: "BubblegumSans",
-                                      fontSize: 10,
+                                      fontSize: 20,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),

@@ -14,6 +14,7 @@ class FirebaseService {
   FirebaseFirestore _db = FirebaseFirestore.instance;
 
   Map? currentUser;
+  Map? currentPostUser;
   FirebaseService();
 
   Future<bool> registerUser({
@@ -56,7 +57,7 @@ class FirebaseService {
 
       if (_userCredential.user != null) {
         currentUser = await getUserData(uid: _userCredential.user!.uid);
-        print(currentUser);
+
         return true;
       } else {
         return false;
@@ -65,6 +66,11 @@ class FirebaseService {
       print(e);
       return false;
     }
+  }
+
+  Future<List> namepost({required String uidP}) async {
+    currentPostUser = await getUserData(uid: uidP);
+    return currentPostUser!.values.toList();
   }
 
   Future<Map> getUserData({required String uid}) async {

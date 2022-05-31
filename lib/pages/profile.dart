@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:samajik/services/firebase_service.dart';
+import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -13,6 +15,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   double? _deviceHeight, _deviceWidth;
   FirebaseService? _firebaseService;
+  File? _image;
   @override
   void initState() {
     super.initState();
@@ -42,8 +45,18 @@ class _ProfileState extends State<Profile> {
   }
 
   Widget _profileWidget() {
+    var _imageProvider = NetworkImage(_firebaseService!.currentUser!["image"]);
     return GestureDetector(
-      onTap: () {},
+      onTap: () async {
+        await FilePicker.platform
+            .pickFiles(type: FileType.image)
+            .then((_result) {
+          setState(() {
+            _image = File(_result!.files.first.path!);
+            print(_image);
+          });
+        });
+      },
       child: Container(
         margin: EdgeInsets.only(bottom: _deviceHeight! * 0.02),
         height: _deviceHeight! * 0.15,
@@ -65,7 +78,8 @@ class _ProfileState extends State<Profile> {
           ],
           image: DecorationImage(
             fit: BoxFit.cover,
-            image: NetworkImage(_firebaseService!.currentUser!["image"]),
+            image: _imageProvider,
+            //image: NetworkImage(_firebaseService!.currentUser!["image"]),
           ),
         ),
       ),
